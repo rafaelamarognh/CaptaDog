@@ -5,6 +5,7 @@ import { firstValueFrom } from 'rxjs';
 
 const HUB_URL = 'https://ws.hubdodesenvolvedor.com.br/v2/cadastropf/';
 
+
 @Injectable()
 export class CpfService {
   constructor(
@@ -26,7 +27,7 @@ export class CpfService {
     try {
       const { data } = await firstValueFrom(
         this.http.get(HUB_URL, {
-          params: { cpf: cpfLimpo, token, json: '' },
+          params: { cpf: cpfLimpo, token, json: '', contract:'bFVWb214WUNpdzIvRlhUOUFzRWhXbHdFcHpQR0RhQnlueWExTzNkdUFnZz0=' },
         }),
       );
 

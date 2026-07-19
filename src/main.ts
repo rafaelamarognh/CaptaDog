@@ -1,3 +1,5 @@
+import 'dotenv/config'; // ← ADICIONAR essa linha, antes de tudo
+
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -9,9 +11,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // remove propriedades não definidas no DTO
-      forbidNonWhitelisted: true, // lança erro se enviar algo a mais
-      transform: true, // transforma payloads automaticamente
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
     }),
   );
 

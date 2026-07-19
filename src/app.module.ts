@@ -5,6 +5,8 @@ import { ConfigModule } from '@nestjs/config';
 import { CadastroModule } from './modules/cadastro/cadastro.module';
 import { CndModule } from './modules/cnd/cnd.module';
 import { CpfModule } from './modules/cpf/cpf.module';
+import { BcModule } from './modules/bc/bc.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { CpfModule } from './modules/cpf/cpf.module';
     CadastroModule,
     CndModule,
     CpfModule,
+    BcModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

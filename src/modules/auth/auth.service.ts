@@ -13,7 +13,9 @@ const ALLOWED_EMAILS = new Set(
     'tmrafinha4@gmail.com',
     'gabrielemoraes@remax.com.br',
     'isabellemoraes@remax.com.br',
-    'acramrajab@remax.com.br'
+    'acramrajab@remax.com.br',
+    'nobrealmeida22@gmail.com',
+    'alex.o.crocetti@gmail.com'
     // adicione mais e-mails aqui, um por linha
   ].map(e => e.toLowerCase()),
 );

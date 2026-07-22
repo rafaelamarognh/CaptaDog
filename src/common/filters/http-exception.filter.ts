@@ -15,33 +15,32 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    const status =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
+    let status: number;
+    let message: string;
 
-    const message =
-      exception instanceof HttpException
-        ? exception.getResponse()
-        : 'Internal server error';
+    if (exception instanceof HttpException) {
+      status = exception.getStatus();
+      const res = exception.getResponse();
+      message = typeof res === 'string' ? res : (res as any)?.message || 'Unexpected error';
+    } else if (exception?.response?.status) {
+      // AxiosError — usa o status HTTP real da resposta externa
+      status = exception.response.status;
+      message = `Serviço externo retornou ${status}: ${exception.response.statusText || 'erro desconhecido'}`;
+    } else {
+      status = HttpStatus.INTERNAL_SERVER_ERROR;
+      message = exception?.message || 'Internal server error';
+    }
 
     const formattedError: AppErrorDto = {
       success: false,
       data: null,
-      message:
-        typeof message === 'string'
-          ? message
-          : (message as any)?.message || 'Unexpected error',
+      message,
       meta: {
         timestamp: new Date().toISOString(),
         path: request.url,
         method: request.method,
       },
-      errors: Array.isArray((message as any)?.message)
-        ? (message as any).message
-        : typeof message === 'object'
-          ? (message as any)?.errors
-          : null,
+      errors: null,
     };
 
     response.status(status).json(formattedError);

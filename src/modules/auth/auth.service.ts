@@ -49,11 +49,11 @@ export class AuthService {
     const email = payload.email.toLowerCase();
 
     // ── Checagem da allowlist ──
-    if (!ALLOWED_EMAILS.has(email)) {
-      throw new ForbiddenException(
-        'Este e-mail não tem permissão para acessar o CaptaDog. Fale com o administrador.',
-      );
-    }
+    // if (!ALLOWED_EMAILS.has(email)) {
+    //   throw new ForbiddenException(
+    //     'Este e-mail não tem permissão para acessar o CaptaDog. Fale com o administrador.',
+    //   );
+    // }
 
     const user = {
       email: payload.email,
@@ -74,9 +74,9 @@ export class AuthService {
 
       // Revalida a allowlist a cada request — se alguém for removido
       // no meio da sessão, o acesso é cortado no próximo request.
-      if (!ALLOWED_EMAILS.has((payload.email || '').toLowerCase())) {
-        throw new ForbiddenException('Acesso revogado');
-      }
+      // if (!ALLOWED_EMAILS.has((payload.email || '').toLowerCase())) {
+      //   throw new ForbiddenException('Acesso revogado');
+      // }
 
       return payload;
     } catch {
